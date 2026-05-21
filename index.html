@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>MyoFamily Health</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">&#10084;</span>
+      <span class="logo-text">MyoFamily <strong>Health</strong></span>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- Home Section -->
+    <section id="home" class="section hero">
+      <div class="hero-badge">Your Health, Our Priority</div>
+      <h1 class="hero-title">Caring for your<br/><span class="accent">whole family</span></h1>
+      <p class="hero-sub">Personalized health services designed for every member of your family, from newborns to seniors.</p>
+      <a href="#contact" class="btn-primary">Book an Appointment</a>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+      <h2 class="section-title">Our Services</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">&#128139;</div>
+          <h3>Primary Care</h3>
+          <p>Routine checkups and preventive care for the whole family.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128144;</div>
+          <h3>Pediatrics</h3>
+          <p>Specialized care and wellness programs for children of all ages.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#129657;</div>
+          <h3>Senior Care</h3>
+          <p>Comprehensive health management for older adults.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#129504;</div>
+          <h3>Mental Health</h3>
+          <p>Counseling and support services for emotional well-being.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128138;</div>
+          <h3>Nutrition</h3>
+          <p>Personalized nutrition plans and dietary guidance.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">&#128170;</div>
+          <h3>Physical Therapy</h3>
+          <p>Rehabilitation and movement care to keep you active.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+      <h2 class="section-title">About Us</h2>
+      <div class="about-card">
+        <p>MyoFamily Health was founded with one mission: to provide affordable, compassionate healthcare to families in our community.</p>
+        <p>Our team of dedicated physicians, nurses, and specialists work together to give you the best care possible — all in one place.</p>
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-num">5,000+</span>
+            <span class="stat-label">Patients Served</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">20+</span>
+            <span class="stat-label">Specialists</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">10 yrs</span>
+            <span class="stat-label">Experience</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="contact-card">
+        <div class="contact-item">
+          <span class="contact-icon">&#128222;</span>
+          <div>
+            <div class="contact-label">Phone</div>
+            <a href="tel:+15550001234" class="contact-value">(555) 000-1234</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">&#128231;</span>
+          <div>
+            <div class="contact-label">Email</div>
+            <a href="mailto:hello@myofamilyhealth.com" class="contact-value">hello@myofamilyhealth.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">&#128205;</span>
+          <div>
+            <div class="contact-label">Address</div>
+            <span class="contact-value">123 Wellness Ave, Health City, CA 90001</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">&#128337;</span>
+          <div>
+            <div class="contact-label">Hours</div>
+            <span class="contact-value">Mon–Fri: 8am–6pm &nbsp;|&nbsp; Sat: 9am–2pm</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="appt-form">
+        <h3>Request an Appointment</h3>
+        <input type="text" placeholder="Your Name" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <select>
+          <option value="" disabled selected>Select a Service</option>
+          <option>Primary Care</option>
+          <option>Pediatrics</option>
+          <option>Senior Care</option>
+          <option>Mental Health</option>
+          <option>Nutrition</option>
+          <option>Physical Therapy</option>
+        </select>
+        <textarea placeholder="Message or preferred date/time (optional)" rows="3"></textarea>
+        <button type="submit" class="btn-primary">Send Request</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <a href="#home" class="nav-item active">
+      <span class="nav-icon">&#127968;</span>
+      <span>Home</span>
+    </a>
+    <a href="#services" class="nav-item">
+      <span class="nav-icon">&#128139;</span>
+      <span>Services</span>
+    </a>
+    <a href="#about" class="nav-item">
+      <span class="nav-icon">&#128101;</span>
+      <span>About</span>
+    </a>
+    <a href="#contact" class="nav-item">
+      <span class="nav-icon">&#128222;</span>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>

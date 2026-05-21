@@ -1,0 +1,310 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #2ecc71;
+  --green-dark: #27ae60;
+  --teal:       #1abc9c;
+  --text:       #2c3e50;
+  --muted:      #7f8c8d;
+  --bg:         #f4f7f6;
+  --white:      #ffffff;
+  --card-bg:    #ffffff;
+  --nav-h:      64px;
+  --header-h:   56px;
+  --radius:     16px;
+  --shadow:     0 2px 16px rgba(0,0,0,.08);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+  /* leave room for fixed header + bottom nav */
+  padding-top: var(--header-h);
+  padding-bottom: var(--nav-h);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── Header ── */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  height: var(--header-h);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 1px 8px rgba(0,0,0,.08);
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.15rem;
+}
+
+.logo-icon { font-size: 1.4rem; color: var(--green); }
+.logo-text { color: var(--text); }
+.logo-text strong { color: var(--green-dark); }
+
+/* ── Main ── */
+.main { display: flex; flex-direction: column; gap: 0; }
+
+.section {
+  padding: 28px 20px;
+  border-bottom: 1px solid #e8eded;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: var(--text);
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(140deg, #e8f8f0 0%, #d5f0ea 100%);
+  border-bottom: none;
+  padding: 36px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  width: fit-content;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.accent { color: var(--green-dark); }
+
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Primary Button ── */
+.btn-primary {
+  display: inline-block;
+  background: var(--green-dark);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 13px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  transition: background .2s;
+}
+.btn-primary:hover, .btn-primary:active { background: var(--green); }
+
+/* ── Service Cards ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-icon { font-size: 1.8rem; }
+
+.card h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ── About ── */
+.about-section { background: #fff; }
+
+.about-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-card p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(135deg, var(--green-dark), var(--teal));
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  margin-top: 6px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.stat-num {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,.8);
+  text-align: center;
+}
+
+/* ── Contact ── */
+.contact-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.contact-icon { font-size: 1.3rem; margin-top: 2px; }
+
+.contact-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 2px;
+}
+
+.contact-value {
+  font-size: 0.88rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+a.contact-value { color: var(--green-dark); }
+
+/* ── Appointment Form ── */
+.appt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.appt-form h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.appt-form input,
+.appt-form select,
+.appt-form textarea {
+  width: 100%;
+  border: 1.5px solid #dde3e0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.appt-form input:focus,
+.appt-form select:focus,
+.appt-form textarea:focus {
+  border-color: var(--green);
+}
+
+.appt-form textarea { resize: none; }
+
+/* ── Bottom Nav ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  height: var(--nav-h);
+  background: var(--white);
+  display: flex;
+  border-top: 1px solid #e0e8e4;
+  box-shadow: 0 -2px 10px rgba(0,0,0,.06);
+  z-index: 100;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-weight: 500;
+  transition: color .15s;
+}
+
+.nav-item .nav-icon { font-size: 1.3rem; }
+
+.nav-item.active,
+.nav-item:active { color: var(--green-dark); }
