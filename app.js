@@ -1,3 +1,5 @@
+const FORMSPREE = 'https://formspree.io/f/mykvjdpd';
+
 // Update header account button
 function updateHeaderAuth() {
   const s = authSession();
@@ -29,20 +31,41 @@ const observer = new IntersectionObserver(entries => {
 
 sections.forEach(s => observer.observe(s));
 
-// Appointment form feedback
+// Appointment form → Formspree
 const form = document.getElementById('appt-form');
 if (form) {
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const btn = form.querySelector('.btn-primary');
-    btn.textContent = 'Request Sent ✓';
-    btn.style.background = '#4D8E8A';
+    const original = btn.textContent;
+    btn.textContent = 'Sending…';
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Send Request';
-      btn.style.background = '';
+
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        btn.textContent = 'Request Sent ✓';
+        btn.style.background = '#4D8E8A';
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.background = '';
+          btn.disabled = false;
+          form.reset();
+        }, 3500);
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = original; btn.style.background = ''; }, 3000);
+      }
+    } catch {
+      btn.textContent = 'No connection — try again';
       btn.disabled = false;
-      form.reset();
-    }, 3500);
+      setTimeout(() => { btn.textContent = original; }, 3000);
+    }
   });
 }

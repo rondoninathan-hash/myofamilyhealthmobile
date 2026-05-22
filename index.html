@@ -46,17 +46,18 @@
         <p class="hero-sub">We&rsquo;re here to help your family feel their best.</p>
       </div>
       <form class="appt-form" id="appt-form">
-        <input type="text" placeholder="Your Name" required />
-        <input type="tel" placeholder="Phone Number" required />
-        <input type="email" placeholder="Email Address" />
-        <select>
+        <input type="hidden" name="_subject" value="New Appointment Request — Myo Family Health" />
+        <input type="text"  name="name"    placeholder="Your Name" required />
+        <input type="tel"   name="phone"   placeholder="Phone Number" required />
+        <input type="email" name="email"   placeholder="Email Address" />
+        <select name="program">
           <option value="" disabled selected>Select a Program</option>
           <option>Ages 3–5 · For Play</option>
           <option>Ages 6–12 · Growing Strong</option>
           <option>Teens &amp; Adults · Full Program</option>
           <option>Post-Orthodontic · Retention</option>
         </select>
-        <textarea placeholder="Preferred date / time or message (optional)" rows="3"></textarea>
+        <textarea name="message" placeholder="Preferred date / time or message (optional)" rows="3"></textarea>
         <button type="submit" class="btn-primary">Send Request</button>
       </form>
     </section>
