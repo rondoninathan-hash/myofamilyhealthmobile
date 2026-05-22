@@ -33,7 +33,11 @@ body {
   margin: 0 auto;
 }
 
-body.service-page,
+body.service-page {
+  padding-top: 0;
+  padding-bottom: var(--nav-h);
+}
+
 body.auth-page {
   padding-top: 0;
   padding-bottom: 0;
@@ -282,7 +286,7 @@ a.contact-value { color: var(--primary-dark); }
 .hours-grid .day { font-size: 0.84rem; color: var(--text); font-weight: 500; }
 .hours-grid .hrs { font-size: 0.84rem; color: var(--muted); }
 
-/* ── Bottom Nav ── */
+/* ── Bottom Nav (shared by index + service pages) ── */
 .bottom-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -343,9 +347,7 @@ a.contact-value { color: var(--primary-dark); }
 .pill-paid { background: #FFF3E0; color: #C0772A; }
 
 .sub-section-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
-
 .sub-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
-
 .goals-heading { font-size: 0.9rem; font-weight: 700; color: var(--text); }
 
 .goals-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }

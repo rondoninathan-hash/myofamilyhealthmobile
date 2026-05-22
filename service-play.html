@@ -25,7 +25,6 @@
   </div>
 
   <main class="sub-main">
-
     <div class="sub-section">
       <span class="pill pill-free">Free Preview</span>
       <h2 class="sub-section-title">About This Program</h2>
@@ -66,14 +65,13 @@
           </div>
           <button class="btn-primary" onclick="showCheckout()">Enroll Now</button>
         </div>
-
         <div id="checkout-panel" class="checkout-form hidden">
           <p class="checkout-note">🔒 Your card will not be charged until your first session is confirmed by our team.</p>
           <input class="form-input" type="text" placeholder="Name on card" autocomplete="cc-name" />
           <input class="form-input" type="tel" placeholder="Card number" maxlength="19" autocomplete="cc-number" />
           <div class="card-split">
-            <input class="form-input" type="tel" placeholder="MM / YY" maxlength="7" autocomplete="cc-exp" />
-            <input class="form-input" type="tel" placeholder="CVV" maxlength="4" autocomplete="cc-csc" />
+            <input class="form-input" type="tel" placeholder="MM / YY" maxlength="7" />
+            <input class="form-input" type="tel" placeholder="CVV" maxlength="4" />
           </div>
           <button class="btn-primary" onclick="completeEnrollment()">Complete Enrollment &middot; $149/mo</button>
           <button class="btn-ghost" onclick="cancelCheckout()">Cancel</button>
@@ -93,8 +91,26 @@
         </div>
       </div>
     </div>
-
   </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <span class="nav-icon">&#127968;</span>
+      <span>Home</span>
+    </a>
+    <a href="index.html#services" class="nav-item active">
+      <span class="nav-icon">&#128139;</span>
+      <span>Programs</span>
+    </a>
+    <a href="index.html#about" class="nav-item">
+      <span class="nav-icon">&#128101;</span>
+      <span>About</span>
+    </a>
+    <a href="index.html#contact" class="nav-item">
+      <span class="nav-icon">&#128222;</span>
+      <span>Contact</span>
+    </a>
+  </nav>
 
   <script src="auth.js"></script>
   <script>
@@ -107,7 +123,6 @@
       else if (authHasPaid(SID)) show('state-enrolled');
       else show('state-enroll');
     })();
-
     function show(id) {
       ['state-guest','state-enroll','state-enrolled'].forEach(i => document.getElementById(i).classList.add('hidden'));
       document.getElementById(id).classList.remove('hidden');
