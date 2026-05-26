@@ -23,6 +23,22 @@
     }
     .auth-success h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
     .auth-success p  { font-size: 0.9rem; color: var(--muted); }
+    .forgot-link { text-align: center; margin-top: 6px; }
+    .forgot-link a { font-size: 0.82rem; color: var(--primary-dark); font-weight: 500; }
+    .reset-intro { font-size: 0.88rem; color: var(--muted); line-height: 1.5; margin-bottom: 4px; }
+    .reset-secq {
+      font-size: 0.88rem; font-weight: 600; color: var(--text);
+      background: var(--bg); border-radius: 10px; padding: 10px 12px;
+    }
+    .secq-hint { font-size: 0.75rem; color: var(--muted); margin-top: -4px; }
+    .reset-no-secq {
+      font-size: 0.85rem; color: var(--muted);
+      background: #FFF8E1; border-radius: 10px; padding: 10px 12px; line-height: 1.5;
+    }
+    .reset-form { display: flex; flex-direction: column; gap: 11px; }
+    #reset-secq-block { display: flex; flex-direction: column; gap: 10px; }
+    .back-to-signin { text-align: center; margin-top: 6px; }
+    .back-to-signin a { font-size: 0.82rem; color: var(--primary-dark); font-weight: 500; }
   </style>
 </head>
 <body class="auth-page">
@@ -62,22 +78,54 @@
       <button class="auth-tab" id="tab-create" onclick="switchTab('create')">Create Account</button>
     </div>
 
+    <!-- Sign In -->
     <form id="form-signin" class="auth-form" onsubmit="handleSignIn(event)">
       <p id="signin-err" class="auth-err hidden"></p>
       <input class="form-input" type="email" id="si-email" placeholder="Email address" required autocomplete="email" />
       <input class="form-input" type="password" id="si-pw" placeholder="Password" required autocomplete="current-password" />
       <button type="submit" class="btn-primary">Sign In</button>
+      <p class="forgot-link"><a href="#" onclick="switchToReset(); return false;">Forgot your password?</a></p>
     </form>
 
+    <!-- Create Account -->
     <form id="form-create" class="auth-form hidden" onsubmit="handleCreate(event)">
       <p id="create-err" class="auth-err hidden"></p>
       <input class="form-input" type="text"     id="ca-name"  placeholder="Full name" required autocomplete="name" />
       <input class="form-input" type="email"    id="ca-email" placeholder="Email address" required autocomplete="email" />
       <input class="form-input" type="password" id="ca-pw"    placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password" />
       <input class="form-input" type="password" id="ca-pw2"   placeholder="Confirm password" required autocomplete="new-password" />
+      <select class="form-input" id="ca-secq" required>
+        <option value="" disabled selected>Security question (for password reset)</option>
+        <option>What was the name of your first pet?</option>
+        <option>What city were you born in?</option>
+        <option>What is your mother's maiden name?</option>
+        <option>What was the name of your elementary school?</option>
+        <option>What was the make of your first car?</option>
+      </select>
+      <input class="form-input" type="text" id="ca-seca" placeholder="Your answer" required autocomplete="off" />
       <button type="submit" class="btn-primary">Create Account</button>
     </form>
 
+    <!-- Forgot Password Panel -->
+    <div id="panel-reset" class="hidden">
+      <p class="reset-intro">Enter your email to look up your security question and set a new password.</p>
+      <p id="reset-err" class="auth-err hidden"></p>
+      <div class="reset-form">
+        <input class="form-input" type="email" id="r-email" placeholder="Email address" oninput="loadSecQ()" autocomplete="email" />
+        <div id="reset-secq-block" class="hidden">
+          <p class="reset-secq" id="reset-secq-text"></p>
+          <p class="secq-hint">Answer is not case-sensitive</p>
+          <input class="form-input" type="text" id="r-seca" placeholder="Your answer" autocomplete="off" />
+          <input class="form-input" type="password" id="r-pw" placeholder="New password (min 6 characters)" minlength="6" autocomplete="new-password" />
+          <input class="form-input" type="password" id="r-pw2" placeholder="Confirm new password" autocomplete="new-password" />
+          <button class="btn-primary" onclick="handleReset()">Reset Password</button>
+        </div>
+        <p id="reset-no-secq" class="reset-no-secq hidden">No security question on file for this account. Please call us at <a href="tel:+17076311550" style="color:var(--primary-dark);font-weight:600">(707) 631-1550</a> to reset your password.</p>
+      </div>
+      <p class="back-to-signin"><a href="#" onclick="switchToSignIn(); return false;">&larr; Back to Sign In</a></p>
+    </div>
+
+    <!-- Success State -->
     <div id="auth-success" class="auth-success hidden">
       <div class="auth-success-icon">✓</div>
       <h3 id="success-heading">Signed In!</h3>
@@ -89,12 +137,10 @@
   <script>
     const FORMSPREE = 'https://formspree.io/f/mykvjdpd';
 
-    // Already logged in — skip straight to destination
     (function () {
       if (authSession()) window.location.replace(getRedirect());
     })();
 
-    // Auto-switch to Create Account tab if ?tab=create
     if (new URLSearchParams(location.search).get('tab') === 'create') switchTab('create');
 
     function getRedirect() {
@@ -108,10 +154,21 @@
       document.getElementById('form-create').classList.toggle('hidden', t !== 'create');
     }
 
+    function switchToReset() {
+      ['auth-tabs','form-signin','form-create'].forEach(id =>
+        document.getElementById(id).classList.add('hidden'));
+      document.getElementById('panel-reset').classList.remove('hidden');
+    }
+
+    function switchToSignIn() {
+      document.getElementById('panel-reset').classList.add('hidden');
+      document.getElementById('auth-tabs').classList.remove('hidden');
+      switchTab('signin');
+    }
+
     function showSuccess(heading, msg) {
-      document.getElementById('auth-tabs').classList.add('hidden');
-      document.getElementById('form-signin').classList.add('hidden');
-      document.getElementById('form-create').classList.add('hidden');
+      ['auth-tabs','form-signin','form-create','panel-reset'].forEach(id =>
+        document.getElementById(id).classList.add('hidden'));
       document.getElementById('success-heading').textContent = heading;
       document.getElementById('success-msg').textContent = msg;
       document.getElementById('auth-success').classList.remove('hidden');
@@ -139,25 +196,28 @@
       const email = document.getElementById('ca-email').value;
       const pw    = document.getElementById('ca-pw').value;
       const pw2   = document.getElementById('ca-pw2').value;
+      const secQ  = document.getElementById('ca-secq').value;
+      const secA  = document.getElementById('ca-seca').value.trim();
       const el    = document.getElementById('create-err');
 
       if (pw !== pw2) {
         el.textContent = 'Passwords do not match.';
-        el.classList.remove('hidden');
-        return;
+        el.classList.remove('hidden'); return;
+      }
+      if (!secA) {
+        el.textContent = 'Please enter a security answer.';
+        el.classList.remove('hidden'); return;
       }
 
-      const r = authRegister(name, email, pw);
+      const r = authRegister(name, email, pw, secQ, secA);
       if (r.ok) {
-        // Notify Amy of new patient sign-up (silent — doesn’t block the user)
         fetch(FORMSPREE, {
           method: 'POST',
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
           body: JSON.stringify({
             _subject: 'New Patient Account — Myo Family Health',
             type: 'New Account Registration',
-            name: name,
-            email: email
+            name, email
           })
         }).catch(() => {});
 
@@ -166,6 +226,53 @@
       } else {
         el.textContent = r.err;
         el.classList.remove('hidden');
+      }
+    }
+
+    function loadSecQ() {
+      const email = document.getElementById('r-email').value.trim();
+      const block = document.getElementById('reset-secq-block');
+      const noQ   = document.getElementById('reset-no-secq');
+      document.getElementById('reset-err').classList.add('hidden');
+      block.classList.add('hidden');
+      noQ.classList.add('hidden');
+
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) return;
+
+      const q = authGetSecQ(email);
+      if (q) {
+        document.getElementById('reset-secq-text').textContent = q;
+        block.classList.remove('hidden');
+      } else if (authEmailExists(email)) {
+        noQ.classList.remove('hidden');
+      }
+    }
+
+    function handleReset() {
+      const email = document.getElementById('r-email').value.trim();
+      const secA  = document.getElementById('r-seca').value;
+      const pw    = document.getElementById('r-pw').value;
+      const pw2   = document.getElementById('r-pw2').value;
+      const err   = document.getElementById('reset-err');
+      err.classList.add('hidden');
+
+      if (pw.length < 6) {
+        err.textContent = 'Password must be at least 6 characters.';
+        err.classList.remove('hidden'); return;
+      }
+      if (pw !== pw2) {
+        err.textContent = 'Passwords do not match.';
+        err.classList.remove('hidden'); return;
+      }
+
+      const r = authResetPassword(email, secA, pw);
+      if (r.ok) {
+        authLogin(email, pw);
+        showSuccess('Password Reset!', 'Your password has been updated. Signing you in…');
+        setTimeout(() => { window.location.href = getRedirect(); }, 1400);
+      } else {
+        err.textContent = r.err;
+        err.classList.remove('hidden');
       }
     }
   </script>
